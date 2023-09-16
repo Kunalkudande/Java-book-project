@@ -1,0 +1,270 @@
+import java.util.*;
+class warehouse {
+	
+	Scanner sc = new Scanner(System.in);
+	private String b, a;
+	private int by, s;
+	private int qu, count=0, numb, qty, sumloss = 0, sumprofit = 0;
+	
+	ArrayList<String> bk = new ArrayList<>();
+	ArrayList<String> ar = new ArrayList<>();
+	ArrayList<Integer> sp = new ArrayList<>();
+	ArrayList<Integer> bp = new ArrayList<>();
+	ArrayList<Integer> q = new ArrayList<>();
+	
+	public void firstData() {
+		System.out.println("!!! Add First Books Data !!!");
+		System.out.print("Enter Book Name: ");
+		b = sc.next();
+		boolean result = b.matches("[a-zA-Z]+");
+		while(result != true) {								// Checking
+			System.out.println("Please Enter Only Name: ");
+			System.out.print("Enter Book Name: ");
+			b = sc.next();
+			result = b.matches("[a-zA-Z]+");
+		}
+		bk.add(b);
+		
+		System.out.print("Enter Book Author Name: ");
+		a = sc.next();
+		boolean result1 = a.matches("[a-zA-Z]+");
+		while(result1 != true) {								// Checking
+			System.out.println("Please Enter Only Name: ");
+			System.out.print("Enter Book Author Name: ");
+			a = sc.next();
+			result1 = a.matches("[a-zA-Z]+");
+		}
+		ar.add(a);
+		
+		System.out.print("Enter Book Selling Price: ");      
+        s = sc.nextInt();
+        sp.add(s);
+        
+        System.out.print("Enter Book Buying Price: ");      
+        by = sc.nextInt();
+        bp.add(by);
+        
+        System.out.print("Enter Book Quantity: ");      
+        qu = sc.nextInt();
+        q.add(qu);
+	}
+	
+	public void display() {
+		
+		System.out.println("!!! BOOKS AVAILABLE IN STORE !!!");
+		System.out.println("\nSr.no\tBook Name\tAuthor\tBuyingPrice\tSellingPrice\tInStock");
+		int c = 0;
+		for (int i = 0; i < bk.size();i++) { 		      
+	        c = i+1;
+			System.out.println(c+"\t"+bk.get(i)+"\t\t"+(ar.get(i))+"\t\t"+(bp.get(i))+"\t\t"+(sp.get(i))+"\t\t"+(q.get(i))+"\n");
+	      }
+	}
+	
+	public void search() {
+		String bsear, ausear;
+		int flag =-1;
+		System.out.print("Enter Book Name To Search: ");
+		bsear = sc.next();
+		boolean result = bsear.matches("[a-zA-Z]+");
+		while(result != true) {								// Checking
+			System.out.println("Please Enter Only Name: ");
+			System.out.print("Enter Book Name To Search: ");
+			bsear = sc.next();
+			result = bsear.matches("[a-zA-Z]+");
+		}
+		int index1 =  bk.indexOf(bsear);
+		
+		System.out.print("Enter Book Author To Search: ");
+		ausear = sc.next();
+		boolean result1 = ausear.matches("[a-zA-Z]+");
+		while(result1 != true) {								// Checking
+			System.out.println("Please Enter Only Name: ");
+			System.out.print("Enter Book Author To Search: ");
+			ausear = sc.next();
+			result1 = ausear.matches("[a-zA-Z]+");
+		}
+		int index2 = ar.indexOf(ausear);
+		
+		System.out.println("\nSr.no\tBook Name\tAuthor\tBuyingPrice\tSellingPrice\tInStock");
+		int c = 0;
+		for (int i = 0; i < bk.size(); i++) { 		      
+	        
+			if(index1 == i && index2 == i) {
+				c=i;
+				flag = 1;
+				break;
+			}
+	    }
+		if(flag == 1) {
+			System.out.println(1+"\t"+bk.get(c)+"\t\t"+(ar.get(c))+"\t\t"+(bp.get(c))+"\t\t"+(sp.get(c))+"\t\t"+(q.get(c))+"\n");
+		}
+		else {
+			System.out.println("\nBook is Not Available in Store ");
+		}
+	}
+	
+	public void purchase() {
+		count++;
+		String bsear;
+		
+		int ch;
+	
+		do {
+			int n, hog;
+			display();
+			
+			System.out.print("Enter Book Name: ");
+			bsear = sc.next();
+			boolean result = bsear.matches("[a-zA-Z]+");
+			while(result != true) {								// Checking
+				System.out.println("Please Enter Only Name: ");
+				System.out.print("Enter Book Name To Search: ");
+				bsear = sc.next();
+				result = bsear.matches("[a-zA-Z]+");
+			}
+			System.out.println("Enter Book number : ");
+			n = sc.nextInt();
+			numb = n-1;
+		
+			System.out.print("Enter Book Quantity: ");
+			qty = sc.nextInt();
+		
+			if(qty > q.get(numb)) {
+				System.out.println("\n!!! Book Quantity is Low !!!");
+				break;
+			}
+			else {
+				hog = q.get(numb)- qty;
+				q.set(numb, hog);
+	    
+				System.out.println("Enter 1 To Print Challan: ");
+				System.out.println("Enter 2 To Not print Challan: ");
+				ch = sc.nextInt();
+	    	
+				switch(ch) {
+	    	
+				case 1:
+					String name, phone;
+					System.out.print("Enter Name: ");    // Entering name
+					name = sc.next();
+					boolean result5 = name.matches("[a-zA-Z]+");
+					while(result5 != true) {								// Checking
+						System.out.println("Please Enter Only Name: ");
+						System.out.print("Enter your Name: ");
+						name = sc.next();
+						result5 = name.matches("[a-zA-Z]+");
+					}
+	    		
+					System.out.print("Enter Phone No.: ");       // Entering Phone No.
+					phone = sc.next();
+					boolean result2 = phone.matches("[0-9]+");
+					while(phone.length() != 10 || result2 != true){    // Checking
+						System.out.println("Enter 10 Digit Phone No.: ");
+						System.out.print("Enter Phone No.: ");      
+						phone = sc.next();
+						result2 = phone.matches("[0-9]+");
+					}
+					System.out.println("-------------------------------------------------------------------------------\n");
+					int pr = sp.get(numb);
+					String bo = bk.get(numb);
+					System.out.println("\n\t    *****BOOK STORE*****");
+					System.out.println("\n\tCustomer Name::   " +name);
+					System.out.println("\n\tPhone No.::       " +phone);
+					System.out.println("\n\tBook Purchase::   " +bo);
+					System.out.println("\n\tBook Price::      " +pr);
+					System.out.println("\tBook Quantity::    " +qty);
+					System.out.println("\n\tTotal Amount::    " +(pr*qty));
+					break;
+	    	
+				case 2:
+					System.out.println("Exit");
+					break;
+	    		
+				default:
+					System.out.println("Please Enter Correct Input");
+				}
+				System.out.println("\n!!! SUCCESSFULLY PURCHASED !!!");
+			}
+	    }while(ch != 1 && ch != 2);
+		
+	}
+	
+	public void profitloss() {
+	
+		int by = bp.get(numb);
+		int se = sp.get(numb);
+		sumloss = sumloss + (by-se)*qty;
+		sumprofit = sumprofit + (se-by)*qty;
+		if(count > 0) {
+			
+			if(sumloss > sumprofit) {
+				System.out.println("!!! You are in LOSS of Rs "+ sumloss +"!!!");
+			}
+			else {
+				System.out.println("!!! You are in PROFIT of Rs "+ sumprofit  + "!!!");
+			}
+		}
+		else {
+			System.out.println("!!! Customer Has Not Purchased Any Book !!!");
+		}
+	}
+}
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		warehouse w = new warehouse();
+		System.out.println("\n-------------------------------------------------------------------------------");
+	    System.out.println("\t\t******WELCOME TO BOOKS STORE******");
+	    System.out.println("-------------------------------------------------------------------------------");
+		w.firstData();
+		
+		int choice;
+		do {
+			System.out.println("\n-------------------------------------------------------------------------------");
+			System.out.println("Enter 1 To Display All Books Available in Store: ");
+			System.out.println("Enter 2 To Add Some More Books: ");
+			System.out.println("Enter 3 To Search By Book name and Author name: ");
+			System.out.println("Enter 4 To Purchase Books: ");
+			System.out.println("Enter 5 To Check Profit or Loss: ");
+			System.out.println("Enter 6 To Quit ");
+			choice = sc.nextInt();
+			System.out.println("-------------------------------------------------------------------------------\n");
+			
+			switch(choice) {
+			
+			case 1:
+				w.display();
+				break;
+				
+			case 2:
+				w.firstData();
+				break;
+				
+			case 3:
+				w.search();
+				break;
+				
+			case 4:
+				w.purchase();
+				break;
+				
+			case 5:
+				w.profitloss();
+				break;
+				
+			case 6:
+				System.out.println("Exit");
+				break;
+				
+			default:
+				System.out.println("!Please Enter Correct Choice!");
+			}
+			
+			
+		}while(choice != 6);
+	}
+
+}
